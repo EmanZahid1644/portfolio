@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eman Zahid | Python Developer & Data Scientist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --python-yellow: #FFD43B;
+            --python-blue: #306998;
+            --ds-purple: #6a0dad;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 5px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        header.hide {
+            transform: translateY(-100%);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--python-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, var(--primary) 70%);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--python-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 0.7s;
+        }
+
+        .typewriter {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            height: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s;
+        }
+
+        .typewriter span {
+            color: var(--accent);
+            font-weight: bold;
+            border-right: 2px solid var(--accent);
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 1.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+        }
+
+        /* About Section */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skills {
+            flex: 1;
+            min-width: 300px;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--ds-purple);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-category h4 i {
+            margin-right: 10px;
+            color: var(--python-blue);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: #f8f9fa;
+        }
+
+        .project-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            background: transparent;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark);
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .tab-btn:not(.active):hover {
+            color: var(--secondary);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+
+        .project-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .project-content p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-item {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .demo-link {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .demo-link:hover {
+            background: var(--python-blue);
+        }
+
+        .code-link {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .code-link:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title h2 {
+            color: white;
+        }
+
+        .contact .section-title h2::after {
+            background: linear-gradient(to right, var(--accent), var(--python-yellow));
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            min-width: 250px;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--python-yellow);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: var(--accent);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .typewriter {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Data Science Elements */
+        .data-viz {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .viz-1 {
+            top: 20%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .viz-2 {
+            bottom: 15%;
+            right: 8%;
+            animation: float 7s ease-in-out infinite 1s;
+        }
+
+        /* Chart animation for skills */
+        .skill-bar {
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Terminal effect */
+        .terminal {
+            background: var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            position: relative;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .terminal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .terminal-btn.red {
+            background: #ff5f56;
+        }
+
+        .terminal-btn.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-btn.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            margin-left: 10px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .terminal-body {
+            line-height: 1.6;
+        }
+
+        .terminal-prompt {
+            color: var(--python-yellow);
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00ff00;
+            vertical-align: middle;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+        }
+
+        /* Particle animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        /* Notification alert */
+        .alert {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease-in-out;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert.show {
+            transform: translateX(0);
+        }
+
+        .alert i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .alert-close {
+            margin-left: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fab fa-python"></i> Eman Zahid
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles" id="particles"></div>
+        <div class="container hero-content">
+            <p class="tagline">Python Developer & Aspiring Data Scientist</p>
+            <h1>Eman Zahid</h1>
+            <div class="typewriter">
+                Transforming data into <span id="typing-text"></span>
+            </div>
+            <div>
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+        </div>
+        
+        <!-- Data visualization elements -->
+        <svg class="data-viz viz-1" width="150" height="150" viewBox="0 0 100 100">
+            <path d="M10,10 L90,10 L90,90 L10,90 Z" fill="none" stroke="#3498db" stroke-width="2"/>
+            <path d="M10,90 L30,30 L50,70 L70,50 L90,10" fill="none" stroke="#e74c3c" stroke-width="2"/>
+            <circle cx="30" cy="30" r="3" fill="#e74c3c"/>
+            <circle cx="50" cy="70" r="3" fill="#e74c3c"/>
+            <circle cx="70" cy="50" r="3" fill="#e74c3c"/>
+        </svg>
+        
+        <svg class="data-viz viz-2" width="120" height="120" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#3498db" stroke-width="2"/>
+            <path d="M50,50 L50,10 A40,40 0 0,1 82,50 Z" fill="#e74c3c" opacity="0.7"/>
+            <path d="M50,50 L82,50 A40,40 0 0,1 50,90 Z" fill="#f1c40f" opacity="0.7"/>
+            <path d="M50,50 L50,90 A40,40 0 0,1 18,50 Z" fill="#2ecc71" opacity="0.7"/>
+        </svg>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Learning. Building. Growing – On a Data Science Journey with Python</h3>
+                    <p>Hello! I'm a Python developer and an aspiring data scientist, currently at the beginner stage of my journey in the world of tech. I'm passionate about working with data — exploring it, analyzing it, and discovering meaningful insights that can help solve real-world problems.</p>
+                    <p>My focus is on building a strong foundation in Python programming, data analysis, and machine learning. I enjoy learning through hands-on projects and love experimenting with datasets to uncover patterns and trends.</p>
+                    <p>I'm currently sharpening my skills in Python (Pandas, NumPy, Matplotlib, etc.), Data Cleaning & Visualization, Jupyter Notebooks, and Basic Machine Learning concepts.</p>
+                    <p>I'm always eager to learn, collaborate, and grow as a developer. This portfolio reflects my learning journey — from small scripts to full-fledged data projects. Let's connect and build something impactful together!</p>
+                </div>
+                <div class="skills">
+                    <div class="skill-category">
+                        <h4><i class="fab fa-python"></i> Programming Languages</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">Python (Core, Scripting)</div>
+                            <div class="skill-item">Functions</div>
+                            <div class="skill-item">Error Handling</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-chart-bar"></i> Data Science & Analytics</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">Data Cleaning</div>
+                            <div class="skill-item">Data Preprocessing</div>
+                            <div class="skill-item">Exploratory Data Analysis</div>
+                            <div class="skill-item">Data Visualization</div>
+                            <div class="skill-item">Basic Machine Learning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-book"></i> Libraries & Frameworks</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">Pandas</div>
+                            <div class="skill-item">NumPy</div>
+                            <div class="skill-item">Matplotlib</div>
+                            <div class="skill-item">Seaborn</div>
+                            <div class="skill-item">Scikit-learn</div>
+                            <div class="skill-item">Jupyter Notebook</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-database"></i> Databases</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">SQL</div>
+                            <div class="skill-item">MySQL</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-code"></i> Core Concepts</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">OOP</div>
+                            <div class="skill-item">Problem-solving</div>
+                            <div class="skill-item">File handling</div>
+                            <div class="skill-item">Data structures</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-tools"></i> Tools & Platforms</h4>
+                        <div class="skill-items">
+                            <div class="skill-item">Jupyter Notebook</div>
+                            <div class="skill-item">Google Colab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <div class="terminal-title">bash — 80×24</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> python --version<span class="terminal-cursor"></span></div>
+                    <div class="terminal-line">Python 3.9.7</div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> pip list<span class="terminal-cursor"></span></div>
+                    <div class="terminal-line">numpy 1.21.2</div>
+                    <div class="terminal-line">pandas 1.3.3</div>
+                    <div class="terminal-line">matplotlib 3.4.3</div>
+                    <div class="terminal-line">scikit-learn 0.24.2</div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor"></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Projects</h2>
+            </div>
+            
+            <div class="project-tabs">
+                <button class="tab-btn active" data-filter="all">All Projects</button>
+                <button class="tab-btn" data-filter="data-science">Data Science</button>
+                <button class="tab-btn" data-filter="python">Python</button>
+            </div>
+            
+            <div class="project-grid">
+                <!-- Data Science Projects -->
+                <div class="project-card" data-category="data-science">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Movie Recommendation System">
+                        <div class="project-category">Data Science</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Mood-Based Movie Recommendation System</h3>
+                        <p>A machine learning–powered recommendation system that suggests movies based on the user's mood. Utilizes clustering (KMeans), dimensionality reduction (PCA), and classification (KNN) to analyze and recommend movies.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">Pandas</div>
+                            <div class="tech-item">NumPy</div>
+                            <div class="tech-item">Scikit-learn</div>
+                            <div class="tech-item">Matplotlib</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/1gh9mpWSeHb7mj6XCa940Jr9wM_y7SQ5A?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="https://raw.githubusercontent.com/EmanZahid1644/Movie-recommendation/main/movies.csv" class="project-link code-link" target="_blank">Dataset</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="data-science">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80" alt="Music Recommendation System">
+                        <div class="project-category">Data Science</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Mood-Based Music Recommendation System</h3>
+                        <p>An intelligent music recommendation system that suggests songs based on the listener's mood. Combines unsupervised learning techniques and data visualization to cluster music tracks and associate them with emotional contexts.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">Pandas</div>
+                            <div class="tech-item">Scikit-learn</div>
+                            <div class="tech-item">Plotly</div>
+                            <div class="tech-item">PCA</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/1ajm7POZM50zzsupATUlWGfS0fZReb5aI?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="https://raw.githubusercontent.com/EmanZahid1644/music-recommendation/main/music.csv" class="project-link code-link" target="_blank">Dataset</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="data-science">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1559095662-1f3db1c011e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Road Accident Hotspot Analyzer">
+                        <div class="project-category">Data Science</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Road Accident Hotspot Analyzer</h3>
+                        <p>Identifies accident-prone areas by analyzing road accident data using clustering and statistical techniques. Uses EDA, KMeans clustering and Poisson distribution to model and highlight high-risk zones.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">EDA</div>
+                            <div class="tech-item">KMeans</div>
+                            <div class="tech-item">PCA</div>
+                            <div class="tech-item">Seaborn</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/16Uu6eI6DosJC_BNCK4IW1lUlylD4bvrL?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="https://raw.githubusercontent.com/EmanZahid1644/road-accident/main/project.csv" class="project-link code-link" target="_blank">Dataset</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Python Projects -->
+                <div class="project-card" data-category="python">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1600494603989-9650cf6ddd3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Inventory & Library Management System">
+                        <div class="project-category">Python</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Inventory & Library Management System</h3>
+                        <p>A functional command-line interface (CLI) project developed in Python that handles inventory and library management tasks. Allows users to manage items by adding, removing, searching, and tracking stock levels.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">OOP</div>
+                            <div class="tech-item">File Handling</div>
+                            <div class="tech-item">CLI</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/1_BN0VjB-mxbBFhYCa4A10YsSxk0sfLKe?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="#" class="project-link code-link" target="_blank">Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="python">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1601593768790-1a1b31b16f6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Smart ATM Simulator">
+                        <div class="project-category">Python</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Smart ATM Simulator</h3>
+                        <p>A console-based ATM simulator built with Python that mimics the basic functionalities of a real-world ATM. Allows users to perform tasks such as balance inquiry, withdrawal, deposit, and PIN verification.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">Functions</div>
+                            <div class="tech-item">CLI</div>
+                            <div class="tech-item">Modular Code</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/1qnfpO17JTsJIaQoEKf-_qmM-Pm9WskXC?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="#" class="project-link code-link" target="_blank">Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="python">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Movie Ticket Booking System">
+                        <div class="project-category">Python</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Movie Ticket Booking System</h3>
+                        <p>A menu-driven, interactive Python application that simulates a real-world movie ticket booking system. Users can view available movies, select show timings, choose seats, and confirm bookings.</p>
+                        <div class="project-tech">
+                            <div class="tech-item">Python</div>
+                            <div class="tech-item">Conditionals</div>
+                            <div class="tech-item">Loops</div>
+                            <div class="tech-item">Data Structures</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://colab.research.google.com/drive/1qYMhXEcM6pyiWVOi_nX2PgP8Ui5OR_gZ?usp=sharing" class="project-link demo-link" target="_blank">View Project</a>
+                            <a href="#" class="project-link code-link" target="_blank">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Phone</h3>
+                    <a href="tel:03288121644">0328 8121644</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:emanzahid234@gmail.com">emanzahid234@gmail.com</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/EmanZahid1644" target="_blank">EmanZahid1644</a>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link" target="_blank"><i class="fab fa-medium-m"></i></a>
+                <a href="#" class="social-link" target="_blank"><i class="fab fa-kaggle"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Eman Zahid. All Rights Reserved.</p>
+            <p>Python Developer & Aspiring Data Scientist</p>
+            <a href="#home" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+        </div>
+    </footer>
+
+    <!-- Notification Alert -->
+    <div class="alert">
+        <i class="fas fa-envelope"></i>
+        <span>Thanks for visiting my portfolio!</span>
+        <span class="alert-close">&times;</span>
+    </div>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Sticky Header
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.classList.remove('hide');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && !header.classList.contains('hide')) {
+                // Scroll down
+                header.classList.add('hide');
+            } else if (currentScroll < lastScroll && header.classList.contains('hide')) {
+                // Scroll up
+                header.classList.remove('hide');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Typewriter Effect
+        const typingText = document.getElementById('typing-text');
+        const words = ['insights', 'solutions', 'stories', 'value', 'knowledge'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isEnd = false;
+        
+        function type() {
+            const currentWord = words[wordIndex];
+            const currentChar = currentWord.substring(0, charIndex);
+            typingText.textContent = currentChar;
+            
+            if (!isDeleting && charIndex < currentWord.length) {
+                // Typing
+                charIndex++;
+                setTimeout(type, 100);
+            } else if (isDeleting && charIndex > 0) {
+                // Deleting
+                charIndex--;
+                setTimeout(type, 50);
+            } else {
+                // Change word
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    wordIndex = (wordIndex + 1) % words.length;
+                }
+                setTimeout(type, 1000);
+            }
+        }
+        
+        // Start typing effect after a delay
+        setTimeout(type, 1500);
+        
+        // Project Filter
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active tab
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Animate project cards on scroll
+        const animateOnScroll = () => {
+            const projectCards = document.querySelectorAll('.project-card');
+            const terminal = document.querySelector('.terminal');
+            
+            projectCards.forEach((card, index) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+            
+            // Animate terminal
+            const terminalPosition = terminal.getBoundingClientRect().top;
+            const terminalScreenPosition = window.innerHeight / 1.3;
+            
+            if (terminalPosition < terminalScreenPosition) {
+                terminal.classList.add('visible');
+            }
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        // Initial check in case elements are already in view
+        animateOnScroll();
+        
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'inline-block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Notification Alert
+        const alertBox = document.querySelector('.alert');
+        const alertClose = document.querySelector('.alert-close');
+        
+        // Show alert after 5 seconds
+        setTimeout(() => {
+            alertBox.classList.add('show');
+        }, 5000);
+        
+        // Close alert
+        alertClose.addEventListener('click', () => {
+            alertBox.classList.remove('show');
+        });
+        
+        // Close alert after 10 seconds
+        setTimeout(() => {
+            alertBox.classList.remove('show');
+        }, 15000);
+        
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random size between 2px and 5px
+            const size = Math.random() * 3 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random position
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration
+            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            // Random opacity
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
